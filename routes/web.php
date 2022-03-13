@@ -27,3 +27,4 @@ Route::post('add/category',[CategoryController::class, 'AddCategory']);
 Route::get('category/fatch',[CategoryController::class, 'CategoryFatch']);
 Route::get('edit/fatch/{id}',[CategoryController::class, 'EditFatch']);
 Route::post('category/update/{id}',[CategoryController::class, 'CategoryUpdate']);
+Route::delete('category/delete/{id}',[CategoryController::class, 'CategoryDelete']);

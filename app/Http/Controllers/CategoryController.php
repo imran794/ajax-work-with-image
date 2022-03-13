@@ -105,6 +105,7 @@ class CategoryController extends Controller
 
             if ($request->hasFile('category_image')) {
 
+                  //image delete
                 $image_path = 'uploads/category/'.$category->category_image;
 
                 if (File::exists($image_path)) {
@@ -138,6 +139,33 @@ class CategoryController extends Controller
 
             }
            
+        }
+
+        public function CategoryDelete($id)
+        {
+            $category = Category::find($id);
+
+            if ($category) {
+
+                //image delete
+                $image_path = 'uploads/category/'.$category->category_image;
+                if (File::exists($image_path)) {
+                    File::delete($image_path);
+                }
+
+               $category->delete();
+                 return response()->json([
+                   'status'   => 200,
+                   'messages'  => 'Category Delete  Successfully'
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                   'status'   => 404,
+                   'messages'  => 'Category Not Found'
+                ]);
+            }
         }
 
 

@@ -73,7 +73,30 @@
         </div>
       </div>
     </div>
-    </form>
+    </form>   
+
+
+     <!-- Delete Modal -->
+    
+    <div class="modal fade" id="deletecategorymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+            <h4>Are you sure ? you went delete this data</h4>
+            <input type="hidden" id="delete_cat_id">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="cat_delete" class="btn btn-danger">Yes Delete it</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
    <div style="margin-top: 50px;">
     <div class="container">
@@ -124,7 +147,7 @@
        }
      });
 
-
+     // Show category 
     function categoryfatch(){
 
         $.ajax({
@@ -154,6 +177,8 @@
 
      categoryfatch();
 
+
+     // delete store
 
     $(document).ready(function () {
         $(document).on('submit','#addcategoryform',function (e) {
@@ -190,6 +215,8 @@
     })
 
 
+     // edit category 
+
     $(document).on('click','.edit_data',function (e) {
         e.preventDefault();
 
@@ -221,6 +248,9 @@
     })
 
 
+         // update category 
+
+
     $(document).on('submit','#updatecategoryform',function (e) {
         e.preventDefault();
 
@@ -250,16 +280,52 @@
                 else if(response.status == 200){
                       $('#update_error_list').html('');
                       $('#update_error_list').addClass('d-none');
-
+                         categoryfatch();
                          $('#editcategorymodal').modal('hide');
                          alert(response.messages);
-                        categoryfatch();
+                      
                 }
             }
 
+        });
+    })
 
+
+
+
+     // delete category 
+
+    $(document).on('click','.delete_data',function (e) {
+        e.preventDefault();
+
+        var delete_id = $(this).val();
+
+        $('#deletecategorymodal').modal('show');
+        $('#delete_cat_id').val(delete_id);
+    })
+
+    $(document).on('click','#cat_delete',function (e) {
+      e.preventDefault();
+
+       var id = $('#delete_cat_id').val();
+
+        $.ajax({
+            type: 'Delete',
+            url: '/category/delete/'+id,
+            success: function(response) {
+                if (response.status == 400) {
+                    alert(response.messages);
+                    $('#deletecategorymodal').modal('hide');
+                }
+                else if(response.status == 200){
+                    alert(response.messages);
+                    $('#deletecategorymodal').modal('hide');
+                      categoryfatch();
+                }
+            }
 
         });
+
     })
 
 
