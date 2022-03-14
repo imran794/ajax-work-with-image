@@ -20,6 +20,12 @@
                 <a href=""></a>
 
                   <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('brand.index') }}" :active="request()->routeIs('afds')">
+                        Brand
+                    </x-jet-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('category.index') }}" :active="request()->routeIs('afds')">
                         Category
                     </x-jet-nav-link>

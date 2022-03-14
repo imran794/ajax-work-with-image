@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,11 @@ Route::get('category/fatch',[CategoryController::class, 'CategoryFatch']);
 Route::get('edit/fatch/{id}',[CategoryController::class, 'EditFatch']);
 Route::post('category/update/{id}',[CategoryController::class, 'CategoryUpdate']);
 Route::delete('category/delete/{id}',[CategoryController::class, 'CategoryDelete']);
+
+// brand
+
+
+Route::get('brand',[BrandController::class, 'Index'])->name('brand.index');
+Route::post('add/brand',[BrandController::class, 'BrandStore']);
+Route::get('/brand/fetch/data',[BrandController::class, 'BrandFetchData']);
+Route::get('/brand/edit/{id}',[BrandController::class, 'BrandEdit']);

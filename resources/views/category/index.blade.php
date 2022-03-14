@@ -178,7 +178,7 @@
      categoryfatch();
 
 
-     // delete store
+     // category store
 
     $(document).ready(function () {
         $(document).on('submit','#addcategoryform',function (e) {
