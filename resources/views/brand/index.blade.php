@@ -57,13 +57,14 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Brand</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Update Brand</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <form id="addbrandform" method="POST" enctype="multipart/form-data">
+          <form id="updatebrandform" method="POST" enctype="multipart/form-data">
           <div class="modal-body">
-            <ul class="alert alert-warning d-none" id="brand_error_list"></ul>
+              <input type="hidden" id="edit_id" name="edit_id">
+            <ul class="alert alert-warning d-none" id="update_brand_error_list"></ul>
             <div class="form-group mt-3">
                 <label>Brand Name</label>
                 <input type="text" name="brand_name" id="edit_name" class="form-control">
@@ -83,12 +84,36 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Update</button>
           </div>
         </div>
       </div>
     </div>
     </form> 
+
+
+
+    <!--Delete Modal -->
+    
+    <div class="modal fade" id="deletebrand" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete Brand</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+            <h4>Are you sure ? you went delete this data</h4>
+            <input type="hidden" id="delete_id">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="delete_brand" class="btn btn-danger">Yes, Delete it</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
@@ -226,6 +251,7 @@
                 if (response.status == 404 ) {
                      $('#editbrand').modal('hide');
                  }else{
+                    $('#edit_id').val(edit_data);
                     $('#edit_name').val(response.brand.brand_name);
                     $('#edit_number').val(response.brand.brand_number);
                     $('#edit_location').val(response.brand.brand_location);
@@ -235,8 +261,78 @@
      })
 
 
+     $(document).on('submit','#updatebrandform',function (e) {
+         e.preventDefault();
 
 
+         var id = $('#edit_id').val();
+
+         let formData = new FormData($('#updatebrandform')[0]);
+
+      
+
+         $.ajax({
+            type: 'POST',
+            url: 'brand/update/'+id,
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if (response.status == 400) {
+                    $('#update_brand_error_list').html('');
+                    $('#update_brand_error_list').removeClass('d-none');
+                    $.each(response.errors, function (key, value) {
+                       $('#update_brand_error_list').append('<li>'+value+'</li>')
+                    })
+                }
+                else if(response.status == 404){
+                    alert(response.messages);
+                }
+                else if(response.status == 200){
+                      $('#update_brand_error_list').html('');
+                      $('#update_brand_error_list').addClass('d-none');
+                         brandfetch();
+                         $('#editbrand').modal('hide');
+                         alert(response.messages);
+                      
+                }
+
+            }
+         });
+     });
+
+
+     $(document).on('click','.delete_data',function (e) {
+         e.preventDefault();
+
+         var id = $(this).val();
+
+         $('#deletebrand').modal('show');
+         $('#delete_id').val(id);
+     });
+
+     $(document).on('click','#delete_brand',function (e) {
+
+        e.preventDefault();
+         let id = $('#delete_id').val();
+
+          $.ajax({
+            type: 'Delete',
+            url: 'brand/delete/'+id,
+            success: function(response) {
+                if (response.status == 400) {
+                    alert(response.messages);
+                    $('#deletebrand').modal('hide');
+                }
+                else if(response.status == 200){
+                    alert(response.messages);
+                    $('#deletebrand').modal('hide');
+                         brandfetch();
+                }
+            }
+
+         });
+     })
 
 
 

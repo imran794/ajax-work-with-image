@@ -37,3 +37,5 @@ Route::get('brand',[BrandController::class, 'Index'])->name('brand.index');
 Route::post('add/brand',[BrandController::class, 'BrandStore']);
 Route::get('/brand/fetch/data',[BrandController::class, 'BrandFetchData']);
 Route::get('/brand/edit/{id}',[BrandController::class, 'BrandEdit']);
+Route::post('brand/update/{id}',[BrandController::class, 'BrandUpdate']);
+Route::delete('brand/delete/{id}',[BrandController::class, 'BrandDelete']);
