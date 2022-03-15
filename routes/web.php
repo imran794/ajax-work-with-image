@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,10 @@ Route::get('/brand/fetch/data',[BrandController::class, 'BrandFetchData']);
 Route::get('/brand/edit/{id}',[BrandController::class, 'BrandEdit']);
 Route::post('brand/update/{id}',[BrandController::class, 'BrandUpdate']);
 Route::delete('brand/delete/{id}',[BrandController::class, 'BrandDelete']);
+
+
+// product 
+
+Route::get('product',[ProductController::class, 'Index'])->name('product.index');
+Route::post('add/product',[ProductController::class, 'AddProduct']);
+Route::get('/product/fatch',[ProductController::class, 'ProductFatch']);

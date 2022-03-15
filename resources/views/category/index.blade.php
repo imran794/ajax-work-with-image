@@ -183,8 +183,6 @@
     $(document).ready(function () {
         $(document).on('submit','#addcategoryform',function (e) {
             e.preventDefault();
-
-
             let formData = new FormData($('#addcategoryform')[0]);
 
             $.ajax({
@@ -194,7 +192,6 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    categoryfatch();
                     if (response.status == 400) {
                         $('#error_list').html('');
                         $('#error_list').removeClass('d-none');
@@ -208,6 +205,8 @@
                     $('#addcategory').modal('hide');
 
                        alert(response.messages);
+                       categoryfatch();
+                         
                 }
 
             });

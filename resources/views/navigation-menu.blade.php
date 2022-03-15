@@ -20,14 +20,20 @@
                 <a href=""></a>
 
                   <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('brand.index') }}" :active="request()->routeIs('afds')">
+                    <x-jet-nav-link href="{{ route('brand.index') }}" :active="request()->routeIs('brand.index')">
                         Brand
                     </x-jet-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('category.index') }}" :active="request()->routeIs('afds')">
+                    <x-jet-nav-link href="{{ route('category.index') }}" :active="request()->routeIs('category.index')">
                         Category
+                    </x-jet-nav-link>
+                </div>  
+
+                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('product.index') }}" :active="request()->routeIs('product.index')">
+                        Product
                     </x-jet-nav-link>
                 </div>
             </div>

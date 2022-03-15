@@ -205,7 +205,6 @@
             let  formData = new FormData($('#addbrandform')[0]);
 
             $.ajax({
-
                 type: 'POST',
                 url: '/add/brand',
                 data: formData,
