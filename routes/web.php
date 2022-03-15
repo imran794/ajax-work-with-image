@@ -47,3 +47,6 @@ Route::delete('brand/delete/{id}',[BrandController::class, 'BrandDelete']);
 Route::get('product',[ProductController::class, 'Index'])->name('product.index');
 Route::post('add/product',[ProductController::class, 'AddProduct']);
 Route::get('/product/fatch',[ProductController::class, 'ProductFatch']);
+Route::get('/edit/product/{id}',[ProductController::class, 'EditProduct']);
+Route::post('/product/update/{id}',[ProductController::class, 'ProductUpdate']);
+Route::delete('/delete/product/{id}',[ProductController::class, 'ProductDelete']);
